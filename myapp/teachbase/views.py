@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from .models import Course
 from .serializers import CourseSerializerList, CourseSerializerDetails
 from myapp.settings import CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL
-from teachbase.token_api import TeachbaseClient
+from tokenapi.token_api import TeachbaseClient
 
 teachbase = TeachbaseClient(CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL)
 
