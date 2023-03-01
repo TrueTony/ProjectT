@@ -3,6 +3,8 @@ import json
 
 import requests
 
+from myapp.settings import CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL
+
 
 class TeachbaseClient:
     _instance = None
@@ -59,3 +61,6 @@ class TeachbaseClient:
         if response.status_code != 200:
             return response.status_code
         return response.json()
+
+
+teachbase = TeachbaseClient(CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL)

@@ -4,21 +4,18 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, get_object_or_
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from client.client import teachbase
 from .models import Course
-from .serializers import CourseSerializerList, CourseSerializerDetails
-from myapp.settings import CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL
-from client.client import TeachbaseClient
-
-teachbase = TeachbaseClient(CLIENT_ID, CLIENT_SECRET, TEACHBASE_URL)
+from .serializers import CourseListSerializer, CourseDetailsSerializer
 
 
 class ShowCoursesAPI(ListAPIView):
     queryset = teachbase.get_all_courses()
-    serializer_class = CourseSerializerList
+    serializer_class = CourseListSerializer
 
 
 class ShowCourseByIdAPI(RetrieveAPIView):
-    serializer_class = CourseSerializerDetails
+    serializer_class = CourseDetailsSerializer
 
     def get_object(self):
         course = teachbase.get_one_course(self.kwargs['pk'])
@@ -29,11 +26,11 @@ class ShowCourseByIdAPI(RetrieveAPIView):
 
 class ShowCoursesFromDB(ListAPIView):
     queryset = Course.objects.all()
-    serializer_class = CourseSerializerList
+    serializer_class = CourseListSerializer
 
 
 class ShowCourseByIdFromDB(RetrieveAPIView):
-    serializer_class = CourseSerializerList
+    serializer_class = CourseListSerializer
 
     def get_object(self):
         return get_object_or_404(Course, pk=self.kwargs['pk'])
