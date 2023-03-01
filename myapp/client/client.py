@@ -51,12 +51,12 @@ class TeachbaseClient:
             return response.status_code
         return response.json()
 
-    def get_one_course(self, course_id):
+    def get_one_course(self, pk):
         self.check_token_is_alive()
         params = {
             'access_token': self.access_token
         }
-        response = requests.get(f'{self.base_url}/endpoint/v1/courses/{course_id}', params)
+        response = requests.get(f'{self.base_url}/endpoint/v1/courses/{pk}', params)
 
         if response.status_code != 200:
             return response.status_code
